@@ -1,7 +1,7 @@
 package foodfinder.hslu.ch.foodfinderapp;
 
 import android.app.AlertDialog;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,12 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import foodfinder.hslu.ch.foodfinderapp.database.DatabaseHandler;
-import foodfinder.hslu.ch.foodfinderapp.database.DatabaseOperation;
+import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 
 public class MainActivity extends AppCompatActivity {
-
-    private DatabaseHandler myDBHandler;
-    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +19,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        System.out.println("Holla!");
 
-        myDBHandler = new DatabaseHandler(this);
-        db = myDBHandler.getWritableDatabase();
+        //DatabaseHandler myDBHandler = new DatabaseHandler(this);
 
         //SQLiteDatabase db = myDB.getWritableDatabase();
         //myDB.getWritableDatabase();
@@ -60,8 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
-            return true;
+            //Intent myIntent = new Intent(MainActivity.this, Settings.class);
+            //myIntent.putExtra("key", value); //Optional parameters
+            //MainActivity.this.startActivity(myIntent);
+            Intent intent = new Intent(getApplicationContext(), Settings.class);
+            startActivity(intent);
         }else if(id == R.id.action_about) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

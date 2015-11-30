@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import foodfinder.hslu.ch.foodfinderapp.product.Product;
+
 public class DatabaseOperation {
 
     DatabaseHandler myDB;
@@ -12,9 +14,8 @@ public class DatabaseOperation {
         this.myDB = myDB;
     }
 
-    //CRUD Operations
 
-    public void insert(){
+    public void insertProduct(Product product){
         // Gets the data repository in write mode
         SQLiteDatabase db = myDB.getWritableDatabase();
 
