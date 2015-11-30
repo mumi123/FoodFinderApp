@@ -1,16 +1,20 @@
 package foodfinder.hslu.ch.foodfinderapp;
 
 import android.app.AlertDialog;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import foodfinder.hslu.ch.foodfinderapp.database.DatabaseHandler;
+import foodfinder.hslu.ch.foodfinderapp.database.DatabaseOperation;
+
 public class MainActivity extends AppCompatActivity {
+
+    private DatabaseHandler myDBHandler;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        myDBHandler = new DatabaseHandler(this);
+        db = myDBHandler.getWritableDatabase();
+
+        //SQLiteDatabase db = myDB.getWritableDatabase();
+        //myDB.getWritableDatabase();
+        //DatabaseOperation dbOperation = new DatabaseOperation(myDB);
+
+        //dbOperation.insert();
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
