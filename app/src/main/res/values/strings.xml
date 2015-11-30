@@ -1,0 +1,15 @@
+<resources>
+    <!-- App -->
+    <string name="app_name">Food Finder App</string>
+
+    <!-- Menü -->
+    <string name="action_settings">Einstellungen</string>
+    <string name="action_about">Über diese App</string>
+
+    <!-- About -->
+    <string name="dialog_title">Über Food Finder App</string>
+    <string name="dialog_message">0.1 Beta\r\n© by Livio Kunz, Muhamed Delic</string>
+
+    <!-- MainActivity -->
+    <string name="button_start">Produkt suchen...</string>
+</resources>
