@@ -2,6 +2,7 @@ package foodfinder.hslu.ch.foodfinderapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,13 +22,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         System.out.println("Holla!");
 
-        //DatabaseHandler myDBHandler = new DatabaseHandler(this);
+        DatabaseHandler myDBHandler = new DatabaseHandler(this);
 
-        //SQLiteDatabase db = myDB.getWritableDatabase();
-        //myDB.getWritableDatabase();
-        //DatabaseOperation dbOperation = new DatabaseOperation(myDB);
-
-        //dbOperation.insert();
+        SQLiteDatabase db = myDBHandler.getWritableDatabase();
+        myDBHandler.getWritableDatabase();
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

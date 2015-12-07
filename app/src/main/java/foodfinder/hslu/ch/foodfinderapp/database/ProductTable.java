@@ -20,4 +20,16 @@ public class ProductTable {
         return "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
     }
 
+    public static String[] initRecord(){
+        //Produkte
+        //********
+        String product[] = new String[3];
+
+        product[0] = "INSERT INTO product("+TABLE_COLUMN_DESCRIPTION+","+TABLE_COLUMN_CATEGORY+") VALUES ('Tabasco', 11);";
+        product[1] = "INSERT INTO product("+TABLE_COLUMN_DESCRIPTION+","+TABLE_COLUMN_CATEGORY+") VALUES ('Zucker', 13);";
+        product[2] = "INSERT INTO product("+TABLE_COLUMN_DESCRIPTION+","+TABLE_COLUMN_CATEGORY+") VALUES ('Ravioli', 1);";
+
+        return product;
+    }
+
 }

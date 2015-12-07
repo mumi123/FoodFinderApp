@@ -3,7 +3,6 @@ package foodfinder.hslu.ch.foodfinderapp.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -17,9 +16,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //Wenn die Datenbank schon besteht, wird diese Methode nicht ausgeführt.
-        System.out.println("Create Tables!");
+        //Es muss die Versionsnummer verändert werden!
+
+        //Datenbank erstellen
         db.execSQL(CategoryTable.createTable());
         db.execSQL(ProductTable.createTable());
+
+        //Datensätze befüllen für Category
+        String category[] = CategoryTable.initRecord();
+
+        for (int i=0; i < category.length; i++)
+        {
+            db.execSQL(category[i]);
+        }
+
+        String product[] = ProductTable.initRecord();
+
+        for (int i=0; i < product.length; i++)
+        {
+            db.execSQL(product[i]);
+        }
     }
 
     @Override
@@ -41,5 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
     }
+
+
 
 }
