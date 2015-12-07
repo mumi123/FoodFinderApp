@@ -1,7 +1,5 @@
 package foodfinder.hslu.ch.foodfinderapp.database;
 
-import java.util.ArrayList;
-
 public class CategoryTable {
 
     private final static String TABLE_NAME = "category";
@@ -28,6 +26,10 @@ public class CategoryTable {
         return TABLE_COLUMN_ID;
     }
 
+    public static String getTableColumnDescription() {
+        return TABLE_COLUMN_DESCRIPTION;
+    }
+
     public static String[] initRecord(){
         //Kategorien
         //**********
@@ -50,7 +52,4 @@ public class CategoryTable {
 
         return category;
     }
-
-
-
 }

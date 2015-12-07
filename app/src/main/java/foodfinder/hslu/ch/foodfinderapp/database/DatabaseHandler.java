@@ -1,8 +1,13 @@
 package foodfinder.hslu.ch.foodfinderapp.database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import foodfinder.hslu.ch.foodfinderapp.entity.Category;
+import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -56,6 +61,72 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (!db.isReadOnly()) {
             db.execSQL("PRAGMA foreign_keys=ON;");
         }
+    }
+
+    public long persistProduct(Product product, Category category){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ProductTable.getTableColumnDescription(), product.getName());
+        values.put(ProductTable.getTableColumnCategory(), product.getCatID());
+        values.put(ProductTable.getTableColumnCategory(), category.getId()); //Reference to Category
+
+        // insert row
+        long productId = db.insert(ProductTable.getTableName(), null, values);
+
+        return productId;
+    }
+
+    public long persistCategory(Category category){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CategoryTable.getTableColumnDescription(), category.getName());
+
+        // insert row
+        long categoryId = db.insert(CategoryTable.getTableName(), null, values);
+
+        return categoryId;
+    }
+
+    public Category getCategoryById(int categoryId){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + CategoryTable.getTableName() + " WHERE "
+                + CategoryTable.getTableColumnId() + " = " + categoryId;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+        {
+            c.moveToFirst();
+        }
+
+        Category category = new Category();
+        category.setId(c.getInt(c.getColumnIndex(CategoryTable.getTableColumnId())));
+        category.setName((c.getString(c.getColumnIndex(CategoryTable.getTableColumnDescription()))));
+
+        return category;
+    }
+
+    public Category getCategoryByName(String name){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + CategoryTable.getTableName() + " WHERE "
+                + CategoryTable.getTableColumnDescription() + " = " + name;
+
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c != null)
+        {
+            c.moveToFirst();
+        }
+
+        Category category = new Category();
+        category.setId(c.getInt(c.getColumnIndex(CategoryTable.getTableColumnId())));
+        category.setName((c.getString(c.getColumnIndex(CategoryTable.getTableColumnDescription()))));
+
+        return category;
     }
 
 

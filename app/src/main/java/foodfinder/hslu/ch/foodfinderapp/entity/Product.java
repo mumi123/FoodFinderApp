@@ -1,11 +1,11 @@
-package foodfinder.hslu.ch.foodfinderapp.product;
+package foodfinder.hslu.ch.foodfinderapp.entity;
 
 
 public class Product {
 
     private int id;
     private String name;
-    private int catID;
+    private Category category;
 
     public Product(String name){
         this.name = name;
@@ -27,12 +27,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getCatID() {
-        return catID;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCatID(int catID) {
-        this.catID = catID;
+    public void setCategory(Category category) {
+        this.category = category;
     }
-
 }

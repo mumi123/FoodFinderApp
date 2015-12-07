@@ -1,5 +1,8 @@
 package foodfinder.hslu.ch.foodfinderapp.database;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 public class ProductTable {
 
     private final static String TABLE_NAME = "product";
@@ -32,4 +35,19 @@ public class ProductTable {
         return product;
     }
 
+    public static String getTableName(){
+        return TABLE_NAME;
+    }
+
+    public static String getTableColumnId(){
+        return TABLE_COLUMN_ID;
+    }
+
+    public static String getTableColumnDescription(){
+        return TABLE_COLUMN_DESCRIPTION;
+    }
+
+    public static String getTableColumnCategory(){
+        return TABLE_COLUMN_CATEGORY;
+    }
 }
