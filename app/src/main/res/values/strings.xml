@@ -12,4 +12,5 @@
 
     <!-- MainActivity -->
     <string name="button_start">Produkt suchen...</string>
+    <string name="button_connect">Verbinde mit Smart Glasses</string>
 </resources>

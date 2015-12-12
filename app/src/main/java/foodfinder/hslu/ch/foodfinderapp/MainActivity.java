@@ -8,8 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import java.util.List;
+
+import foodfinder.hslu.ch.foodfinderapp.communication.TCPClient;
 import foodfinder.hslu.ch.foodfinderapp.database.DatabaseHandler;
+import foodfinder.hslu.ch.foodfinderapp.entity.Category;
+import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,12 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        System.out.println("Holla!");
 
-        DatabaseHandler myDBHandler = new DatabaseHandler(this);
-
-        SQLiteDatabase db = myDBHandler.getWritableDatabase();
-        myDBHandler.getWritableDatabase();
 
         /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -44,6 +45,30 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    public void showAllCat(View view) {
+
+        DatabaseHandler myDBHandler = new DatabaseHandler(this);
+
+        SQLiteDatabase db = myDBHandler.getWritableDatabase();
+        myDBHandler.getWritableDatabase();
+
+        List<Category> categories = myDBHandler.getAllCatetory();
+
+        for(Category cat : categories){
+            System.out.println("Kategorie: "+cat.getName());
+
+            for(Product prd : cat.getProducts()){
+                System.out.println("Produkt: "+prd.getName());
+            }
+            System.out.println("***************************************");
+        }
+    }
+
+    public void connectToGlasses(View view){
+        Thread thread = new Thread(new TCPClient("10.3.96.108", 8080));
+        thread.start();
     }
 
     @Override

@@ -7,6 +7,8 @@ public class Product {
     private String name;
     private Category category;
 
+    public Product(){};
+
     public Product(String name){
         this.name = name;
     }

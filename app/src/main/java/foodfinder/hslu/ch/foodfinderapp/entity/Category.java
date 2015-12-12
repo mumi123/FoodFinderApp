@@ -1,12 +1,19 @@
 package foodfinder.hslu.ch.foodfinderapp.entity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Category {
 
     private int id;
     private String name;
-    private ArrayList<Product> products = new ArrayList<>();
+    private List<Product> products = new ArrayList<>();
+
+    public Category(){};
+
+    public Category(String name){
+        this.name = name;
+    }
 
     public int getId() {
         return id;
@@ -24,11 +31,11 @@ public class Category {
         this.name = name;
     }
 
-    public ArrayList<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

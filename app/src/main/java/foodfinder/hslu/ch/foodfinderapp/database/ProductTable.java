@@ -8,7 +8,7 @@ public class ProductTable {
     private final static String TABLE_NAME = "product";
     private final static String TABLE_COLUMN_ID = "id";
     private final static String TABLE_COLUMN_DESCRIPTION = "description";
-    private final static String TABLE_COLUMN_CATEGORY = "category";
+    private final static String TABLE_COLUMN_CATEGORY = "category_id";
 
     public ProductTable(){}
 

@@ -6,12 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import foodfinder.hslu.ch.foodfinderapp.entity.Category;
 import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     public static final String DATABASE_NAME = "FoodFinder.db";
 
     public DatabaseHandler(Context context) {
@@ -68,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(ProductTable.getTableColumnDescription(), product.getName());
-        values.put(ProductTable.getTableColumnCategory(), product.getCatID());
+        values.put(ProductTable.getTableColumnCategory(), product.getId());
         values.put(ProductTable.getTableColumnCategory(), category.getId()); //Reference to Category
 
         // insert row
@@ -129,6 +132,44 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return category;
     }
 
+    public List<Category> getAllCatetory(){
 
+        List<Category> categories = new ArrayList<>();
+        String selectQuery = "SELECT  * FROM " + CategoryTable.getTableName();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Category cat = new Category();
+                cat.setId(c.getInt((c.getColumnIndex(CategoryTable.getTableColumnId()))));
+                cat.setName(c.getString(c.getColumnIndex(CategoryTable.getTableColumnDescription())));
+                cat.setProducts(getProductsByCategoryId(cat.getId()));
+                categories.add(cat);
+            } while (c.moveToNext());
+        }
+        return categories;
+    }
+
+    public List<Product> getProductsByCategoryId(int catId){
+
+        List<Product> products = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM " + ProductTable.getTableName() +" WHERE "+ProductTable.getTableName()+"."+ProductTable.getTableColumnCategory() +" = "+catId;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+            do {
+                Product prd = new Product();
+                prd.setId(c.getInt((c.getColumnIndex(ProductTable.getTableColumnId()))));
+                prd.setName(c.getString(c.getColumnIndex(ProductTable.getTableColumnDescription())));
+                products.add(prd);
+            } while (c.moveToNext());
+        }
+        return products;
+    }
 
 }
