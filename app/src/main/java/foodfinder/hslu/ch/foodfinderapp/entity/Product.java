@@ -1,7 +1,10 @@
 package foodfinder.hslu.ch.foodfinderapp.entity;
 
+import java.io.Serializable;
 
-public class Product {
+public class Product implements Serializable{
+
+    static final long serialVersionUID = -50077493051991107L;
 
     private int id;
     private String name;

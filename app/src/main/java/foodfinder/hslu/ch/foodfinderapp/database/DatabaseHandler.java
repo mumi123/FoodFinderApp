@@ -171,5 +171,4 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return products;
     }
-
 }

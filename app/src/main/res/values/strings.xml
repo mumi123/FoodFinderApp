@@ -13,4 +13,17 @@
     <!-- MainActivity -->
     <string name="button_start">Produkt suchen...</string>
     <string name="button_connect">Verbinde mit Smart Glasses</string>
+    <string name="button_send">Sende Produkt</string>
+
+    <!-- Settings -->
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+        <!-- Servereinstellungen -->
+        <string name="pref_server_profile">Verbindung zur Smart Glasses</string>
+        <string name="pref_server_ip">Server IP Adresse</string>
+        <string name="pref_server_ip_summary">Die Adresse für den Server</string>
+        <string name="pref_server_port">Port</string>
+        <string name="pref_server_port_summary">Port für die Verbindung definieren</string>
+
 </resources>

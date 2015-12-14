@@ -10,13 +10,26 @@
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
     <ImageView
-        android:layout_width="80pt"
-        android:layout_height="80pt"
-        android:id="@+id/logo"
-        android:background="@drawable/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connectionView"
+        android:src="@drawable/notconnected"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="5pt" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_connect"
+        android:id="@+id/connect"
+        android:background="@android:color/holo_blue_light"
+        android:onClick="connectToGlasses"
+        android:layout_weight="0.00"
+        android:layout_below="@+id/connectionView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/start"
+        android:layout_alignEnd="@+id/start" />
 
     <Button
         android:layout_width="match_parent"
@@ -24,18 +37,23 @@
         android:text="@string/button_start"
         android:id="@+id/start"
         android:background="@android:color/holo_blue_light"
+        android:onClick="showAllCat"
+        android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="showAllCat"/>
+        android:layout_alignParentStart="true" />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_connect"
-        android:id="@+id/connect"
+        android:text="@string/button_send"
+        android:id="@+id/send"
         android:background="@android:color/holo_blue_light"
-        android:onClick="connectToGlasses"
+        android:onClick="sendToGlasses"
+        android:layout_gravity="center_horizontal"
         android:layout_below="@+id/start"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="63dp" />
+
 </RelativeLayout>
