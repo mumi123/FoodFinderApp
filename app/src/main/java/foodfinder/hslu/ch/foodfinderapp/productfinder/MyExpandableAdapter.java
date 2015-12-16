@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import foodfinder.hslu.ch.foodfinderapp.R;
 import foodfinder.hslu.ch.foodfinderapp.communication.TCPClient;
@@ -96,6 +98,7 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
                     }
 
                     if(TCPClient.getInstance().getTcpClient() != null){
+                        int counter = 0;
 
                         while(true){
                             if(TCPClient.getInstance().getTcpClient().isConnected()){
@@ -108,22 +111,25 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+
+                            if(counter>10){
+                                break; //mehr als 10 versuche! --> Abbrechen
+                            }
+                            counter++;
                         }
                     }
                 }
 
-                while(!connected){
-
-                }
-
-                System.out.println("connected!!!!!!!!!!");
-
                 if(TCPClient.getInstance().getTcpClient().isConnected()){
                     TCPClient.getInstance().send(child); //Sende das Produkt der Datenbrille
+                    try {
+                        Thread.sleep(1000); //Eine Sekunde warten, bis die Connection aufgebaut ist.
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }else{
                     System.out.println("Fehler beim Senden!");
                 }
-
 
                 Toast.makeText(activity, resId,
                         Toast.LENGTH_SHORT).show();
@@ -148,11 +154,18 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
                 thread.start();
 
 
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 while(!received){
                     //Ladebalken anzeigen
 
                 }
                 TCPClient.resetInstance();
+                System.out.println("instanz wurde zerstört!");
             }
         });
 
@@ -209,4 +222,5 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
     public void onGroupExpanded(int groupPosition) {
         super.onGroupExpanded(groupPosition);
     }
+
 }

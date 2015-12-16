@@ -16,7 +16,6 @@ public class TCPClient implements Runnable{
 
     private static TCPClient instance;
     private static Socket tcpClient;
-    private static SocketAddress sockaddr;
 
     private TCPClient() {
     }
@@ -25,7 +24,6 @@ public class TCPClient implements Runnable{
         if (instance == null){
             instance = new TCPClient();
             tcpClient = new Socket();
-            sockaddr = new InetSocketAddress(Settings.ipServerAdress, Settings.port);;
         }
         return instance;
     }
@@ -37,55 +35,23 @@ public class TCPClient implements Runnable{
     @Override
     public void run() {
         //Verbinde mit Server (Smart Glasses)
-
-        //tcpClient = new Socket();
-
-        try {
-            if(getTcpClient() != null){
-                if(!getTcpClient().isConnected()) {
-                    getTcpClient().connect(getSockaddr(), 100);
-                }
-            }else {
-                getTcpClient().connect(getSockaddr(), 100);
-            }
-
-            /*
-            this.tcpClient = new Socket();
-            this.tcpClient.connect(sockaddr, 5000);
-            setSend(true); //Sendenflag setzen
-            this.tcpClient.setKeepAlive(true);
-            */
-            /*
-            if(this.tcpClient != null){
-                if(!this.tcpClient.isConnected()) {
-                    this.tcpClient.connect(this.sockaddr, 5000);
-                    setSend(true); //Sendenflag setzen
-                }
-            }else {
-                this.tcpClient = new Socket();
-                this.tcpClient.connect(sockaddr, 5000);
-                setSend(true); //Sendenflag setzen
-            }
-            */
-        } catch (SocketTimeoutException ex){
-            System.err.println("Timeout. Server ist nicht online!"+ex);
-        } catch (IOException ex) {
-            System.err.println("Fehler beim verbinden mit Server: "+ex);
-        }
+        doConnect();
     }
 
     public void send(Product product){
-
+        doConnect();
         try{
             ObjectOutputStream outToServer = new ObjectOutputStream(getInstance().getTcpClient().getOutputStream());
             outToServer.writeObject(product);
+            outToServer.flush();
         }catch (IOException ex){
-            System.out.println("Fehler beim senden des Objekts: "+ex);
+            System.out.println("Fehler beim senden des Objekts: " + ex);
         }
     }
 
     public Boolean receive(){
         Boolean foundProduct = false;
+        doConnect();
         try{
             ObjectInputStream inFromServer = new ObjectInputStream(getInstance().getTcpClient().getInputStream());
             foundProduct = (Boolean) inFromServer.readObject();
@@ -94,22 +60,26 @@ public class TCPClient implements Runnable{
         }catch(ClassNotFoundException ex){
             System.out.println("Fehler Klasse nicht gefunden: "+ex);
         }
-
-        try {
-            getInstance().getTcpClient().close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         return foundProduct;
-    }
-
-    public static SocketAddress getSockaddr() {
-        return sockaddr;
     }
 
     public Socket getTcpClient() {
         return tcpClient;
+    }
+
+    public void doConnect(){
+        try{
+            if(getTcpClient() != null){
+                if(!getTcpClient().isConnected()) {
+                    getTcpClient().connect(new InetSocketAddress(Settings.ipServerAdress, Settings.port), 100);
+                }
+            }else {
+                getTcpClient().connect(new InetSocketAddress(Settings.ipServerAdress, Settings.port), 100);
+            }
+        }catch (IOException ex){
+            System.err.println("Timeout. Server ist nicht online!"+ex);
+        }
+
     }
 
 }
