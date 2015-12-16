@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
 import foodfinder.hslu.ch.foodfinderapp.entity.Product;
@@ -14,9 +15,8 @@ import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 public class TCPClient implements Runnable{
 
     private static TCPClient instance;
-
-    private Socket tcpClient;
-    private boolean send = false;
+    private static Socket tcpClient;
+    private static SocketAddress sockaddr;
 
     private TCPClient() {
     }
@@ -24,29 +24,49 @@ public class TCPClient implements Runnable{
     public static synchronized TCPClient getInstance() {
         if (instance == null){
             instance = new TCPClient();
+            tcpClient = new Socket();
+            sockaddr = new InetSocketAddress(Settings.ipServerAdress, Settings.port);;
         }
         return instance;
     }
 
-    synchronized static void resetInstance(){
+    public synchronized static void resetInstance(){
         instance = null; //reset the instance
     }
 
     @Override
     public void run() {
         //Verbinde mit Server (Smart Glasses)
+
+        //tcpClient = new Socket();
+
         try {
-            System.out.println("try to connect...");
+            if(getTcpClient() != null){
+                if(!getTcpClient().isConnected()) {
+                    getTcpClient().connect(getSockaddr(), 100);
+                }
+            }else {
+                getTcpClient().connect(getSockaddr(), 100);
+            }
 
+            /*
             this.tcpClient = new Socket();
-
-            SocketAddress sockaddr = new InetSocketAddress(Settings.ipServerAdress, Settings.port);
-
-            tcpClient.connect(sockaddr, 5000);
-
+            this.tcpClient.connect(sockaddr, 5000);
             setSend(true); //Sendenflag setzen
-            System.out.println("connected...");
-
+            this.tcpClient.setKeepAlive(true);
+            */
+            /*
+            if(this.tcpClient != null){
+                if(!this.tcpClient.isConnected()) {
+                    this.tcpClient.connect(this.sockaddr, 5000);
+                    setSend(true); //Sendenflag setzen
+                }
+            }else {
+                this.tcpClient = new Socket();
+                this.tcpClient.connect(sockaddr, 5000);
+                setSend(true); //Sendenflag setzen
+            }
+            */
         } catch (SocketTimeoutException ex){
             System.err.println("Timeout. Server ist nicht online!"+ex);
         } catch (IOException ex) {
@@ -57,44 +77,39 @@ public class TCPClient implements Runnable{
     public void send(Product product){
 
         try{
-            ObjectOutputStream outToServer = new ObjectOutputStream(this.tcpClient.getOutputStream());
+            ObjectOutputStream outToServer = new ObjectOutputStream(getInstance().getTcpClient().getOutputStream());
             outToServer.writeObject(product);
-            this.tcpClient.close();
         }catch (IOException ex){
             System.out.println("Fehler beim senden des Objekts: "+ex);
         }
     }
 
-    public Product receive(){
-
-        Product prd = null;
-
+    public Boolean receive(){
+        Boolean foundProduct = false;
         try{
-            ObjectInputStream inFromServer = new ObjectInputStream(this.tcpClient.getInputStream());
-
-            prd = (Product) inFromServer.readObject();
-
+            ObjectInputStream inFromServer = new ObjectInputStream(getInstance().getTcpClient().getInputStream());
+            foundProduct = (Boolean) inFromServer.readObject();
         }catch(IOException ex){
             System.out.println("Fehler beim empfangen des Objekts: "+ex);
         }catch(ClassNotFoundException ex){
             System.out.println("Fehler Klasse nicht gefunden: "+ex);
         }
-        return prd;
+
+        try {
+            getInstance().getTcpClient().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return foundProduct;
     }
 
-    public boolean isSend() {
-        return send;
-    }
-
-    public void setSend(boolean send) {
-        this.send = send;
+    public static SocketAddress getSockaddr() {
+        return sockaddr;
     }
 
     public Socket getTcpClient() {
         return tcpClient;
     }
 
-    public void setTcpClient(Socket tcpClient) {
-        this.tcpClient = tcpClient;
-    }
 }

@@ -26,4 +26,11 @@
         <string name="pref_server_port">Port</string>
         <string name="pref_server_port_summary">Port für die Verbindung definieren</string>
 
+    <!-- Fehlermeldungen -->
+    <string name="err_noconnection">Keine Verbindung zur Smart Glasses</string>
+
+
+    <!-- Infomeldungen -->
+    <string name="info_send">Produkt wurde erfolgreich übermittelt.</string>
+
 </resources>
