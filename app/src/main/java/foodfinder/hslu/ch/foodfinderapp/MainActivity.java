@@ -19,6 +19,8 @@ import foodfinder.hslu.ch.foodfinderapp.communication.TCPClient;
 import foodfinder.hslu.ch.foodfinderapp.database.DatabaseHandler;
 import foodfinder.hslu.ch.foodfinderapp.entity.Category;
 import foodfinder.hslu.ch.foodfinderapp.entity.Product;
+import foodfinder.hslu.ch.foodfinderapp.productfinder.AllProduct;
+import foodfinder.hslu.ch.foodfinderapp.productfinder.MyExpandableAdapter;
 import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 
 public class MainActivity extends AppCompatActivity {
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void showAllCat(View view) {
 
+        Intent intent = new Intent(getApplicationContext(), AllProduct.class);
+        startActivity(intent);
+        /*
         DatabaseHandler myDBHandler = new DatabaseHandler(this);
 
         SQLiteDatabase db = myDBHandler.getWritableDatabase();
@@ -76,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
             System.out.println("***************************************");
         }
+        */
     }
 
     public void connectToGlasses(View view){

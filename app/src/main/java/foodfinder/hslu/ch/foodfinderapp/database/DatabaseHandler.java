@@ -74,7 +74,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(ProductTable.getTableColumnCategory(), product.getId());
         values.put(ProductTable.getTableColumnCategory(), category.getId()); //Reference to Category
 
-        // insert row
+        // insert
         long productId = db.insert(ProductTable.getTableName(), null, values);
 
         return productId;
@@ -86,7 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CategoryTable.getTableColumnDescription(), category.getName());
 
-        // insert row
+        // insert
         long categoryId = db.insert(CategoryTable.getTableName(), null, values);
 
         return categoryId;
