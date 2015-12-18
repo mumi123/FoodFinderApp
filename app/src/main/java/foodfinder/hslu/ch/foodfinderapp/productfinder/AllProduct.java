@@ -8,8 +8,6 @@ import android.widget.ExpandableListView;
 
 import foodfinder.hslu.ch.foodfinderapp.R;
 import foodfinder.hslu.ch.foodfinderapp.database.DatabaseHandler;
-import foodfinder.hslu.ch.foodfinderapp.entity.Category;
-import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 
 public class AllProduct extends AppCompatActivity {
 

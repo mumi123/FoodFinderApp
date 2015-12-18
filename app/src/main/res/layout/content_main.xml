@@ -13,23 +13,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/connectionView"
-        android:src="@drawable/notconnected"
+        android:src="@drawable/logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/button_connect"
-        android:id="@+id/connect"
-        android:background="@android:color/holo_blue_light"
-        android:onClick="connectToGlasses"
-        android:layout_weight="0.00"
-        android:layout_below="@+id/connectionView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/start"
-        android:layout_alignEnd="@+id/start" />
 
     <Button
         android:layout_width="match_parent"
@@ -39,7 +25,7 @@
         android:background="@android:color/holo_blue_light"
         android:onClick="showAllCat"
         android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/connectionView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

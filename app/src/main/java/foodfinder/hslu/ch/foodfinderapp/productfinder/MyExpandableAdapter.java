@@ -13,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import foodfinder.hslu.ch.foodfinderapp.R;
 import foodfinder.hslu.ch.foodfinderapp.communication.TCPClient;
@@ -162,7 +160,6 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
 
                 while(!received){
                     //Ladebalken anzeigen
-
                 }
                 TCPClient.resetInstance();
                 System.out.println("instanz wurde zerstört!");

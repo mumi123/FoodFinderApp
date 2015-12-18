@@ -9,9 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
-import foodfinder.hslu.ch.foodfinderapp.communication.TCPClient;
 import foodfinder.hslu.ch.foodfinderapp.productfinder.AllProduct;
 import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 
@@ -30,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
         PreferenceManager.setDefaultValues(this, R.xml.settings, false); //DefaultValues laden
         Settings settings = new Settings();
         settings.loadPrefs(this);
-
-        System.out.println("Load Prefs1: " + Settings.ipServerAdress);
-        System.out.println("Load Prefs2: " + Settings.port);
     }
 
     @Override
@@ -45,27 +40,6 @@ public class MainActivity extends AppCompatActivity {
     public void showAllCat(View view) {
         Intent intent = new Intent(getApplicationContext(), AllProduct.class);
         startActivity(intent);
-    }
-
-    public void connectToGlasses(View view){
-        Thread thread = new Thread(TCPClient.getInstance());
-        thread.start();
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (TCPClient.getInstance().getTcpClient() != null){
-            if(TCPClient.getInstance().getTcpClient().isConnected()){
-                ImageView conStatus = (ImageView) findViewById(R.id.connectionView);
-                conStatus.setImageResource(R.drawable.connected);
-            }else{
-                ImageView conStatus = (ImageView) findViewById(R.id.connectionView);
-                conStatus.setImageResource(R.drawable.notconnected);
-            }
-        }
     }
 
     @Override

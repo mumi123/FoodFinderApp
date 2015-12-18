@@ -1,8 +1,5 @@
 package foodfinder.hslu.ch.foodfinderapp.database;
 
-import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
-
 public class ProductTable {
 
     private final static String TABLE_NAME = "product";

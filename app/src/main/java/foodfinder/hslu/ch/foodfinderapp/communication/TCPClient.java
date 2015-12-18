@@ -5,9 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 
 import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
