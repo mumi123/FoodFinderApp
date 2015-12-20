@@ -14,7 +14,7 @@ import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "FoodFinder.db";
 
     public DatabaseHandler(Context context) {
@@ -33,16 +33,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         //Datensätze befüllen für Category
         String category[] = CategoryTable.initRecord();
 
-        for (int i=0; i < category.length; i++)
-        {
-            db.execSQL(category[i]);
+        for (String aCategory : category) {
+            db.execSQL(aCategory);
         }
 
         String product[] = ProductTable.initRecord();
 
-        for (int i=0; i < product.length; i++)
-        {
-            db.execSQL(product[i]);
+        for (String aProduct : product) {
+            db.execSQL(aProduct);
         }
     }
 
@@ -74,10 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(ProductTable.getTableColumnCategory(), product.getId());
         values.put(ProductTable.getTableColumnCategory(), category.getId()); //Reference to Category
 
-        // insert
-        long productId = db.insert(ProductTable.getTableName(), null, values);
-
-        return productId;
+        return db.insert(ProductTable.getTableName(), null, values);
     }
 
     public long persistCategory(Category category){
@@ -86,10 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CategoryTable.getTableColumnDescription(), category.getName());
 
-        // insert
-        long categoryId = db.insert(CategoryTable.getTableName(), null, values);
-
-        return categoryId;
+        return db.insert(CategoryTable.getTableName(), null, values);
     }
 
     public Category getCategoryById(int categoryId){
@@ -106,7 +98,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         Category category = new Category();
-        category.setId(c.getInt(c.getColumnIndex(CategoryTable.getTableColumnId())));
+        category.setId(c.getInt(c != null ? c.getColumnIndex(CategoryTable.getTableColumnId()) : 0));
         category.setName((c.getString(c.getColumnIndex(CategoryTable.getTableColumnDescription()))));
 
         return category;
@@ -126,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
 
         Category category = new Category();
-        category.setId(c.getInt(c.getColumnIndex(CategoryTable.getTableColumnId())));
+        category.setId(c.getInt(c != null ? c.getColumnIndex(CategoryTable.getTableColumnId()) : 0));
         category.setName((c.getString(c.getColumnIndex(CategoryTable.getTableColumnDescription()))));
 
         return category;

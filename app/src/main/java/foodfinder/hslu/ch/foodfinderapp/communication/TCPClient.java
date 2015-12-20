@@ -6,10 +6,11 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+import foodfinder.hslu.ch.foodfinderapp.communicationInterface.Communication;
 import foodfinder.hslu.ch.foodfinderapp.entity.Product;
 import foodfinder.hslu.ch.foodfinderapp.settings.Settings;
 
-public class TCPClient implements Runnable{
+public class TCPClient implements Runnable, Communication{
 
     private static TCPClient instance;
     private static Socket tcpClient;
@@ -35,6 +36,7 @@ public class TCPClient implements Runnable{
         doConnect();
     }
 
+    @Override
     public void send(Product product){
         doConnect();
         try{
@@ -46,6 +48,7 @@ public class TCPClient implements Runnable{
         }
     }
 
+    @Override
     public Boolean receive(){
         Boolean foundProduct = false;
         doConnect();

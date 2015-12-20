@@ -8,7 +8,7 @@
 
     <!-- About -->
     <string name="dialog_title">Über Food Finder App</string>
-    <string name="dialog_message">0.1 Beta\r\n© by Livio Kunz, Muhamed Delic</string>
+    <string name="dialog_message">Version 1.0\r\n© by Livio Kunz, Muhamed Delic</string>
 
     <!-- MainActivity -->
     <string name="button_start">Produkt suchen...</string>
