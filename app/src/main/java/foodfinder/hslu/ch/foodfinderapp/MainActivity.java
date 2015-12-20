@@ -48,13 +48,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            //Intent myIntent = new Intent(MainActivity.this, Settings.class);
-            //myIntent.putExtra("key", value); //Optional parameters
-            //MainActivity.this.startActivity(myIntent);
             Intent i = new Intent(this, Settings.class);
             startActivityForResult(i, RESULT_SETTINGS);
-            //Intent intent = new Intent(getApplicationContext(), Settings.class);
-            //startActivity(intent);
         }else if(id == R.id.action_about) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
